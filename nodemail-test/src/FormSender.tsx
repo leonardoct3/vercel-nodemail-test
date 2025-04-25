@@ -1,6 +1,7 @@
 // src/components/ContactForm.tsx
 
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
 interface FormData {
   name: string;
@@ -8,7 +9,7 @@ interface FormData {
   message: string;
 }
 
-const ContactForm: React.FC = () => {
+const ContactForm = () => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -39,14 +40,62 @@ const ContactForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <input name="name" placeholder="Name" required value={formData.name} onChange={handleChange} />
       <input name="email" placeholder="Email" type="email" required value={formData.email} onChange={handleChange} />
-      <textarea name="message" placeholder="Message" required value={formData.message} onChange={handleChange} />
+      <div className='message'>
+        <p>Como tem sido sua convivência no trabalho?</p>
+        <textarea name="message" placeholder="Message" required value={formData.message} onChange={handleChange} />
+      </div>
       <button type="submit">Send</button>
       {status && <p>{status}</p>}
-    </form>
+    </Form>
   );
 };
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  margin: auto;
+
+  .message {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+  }
+
+  input, textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+
+  button {
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  p {
+    margin-top: 10px;
+    color: black;
+  }
+
+  textarea {
+    font-family: inherit;
+  }
+
+  
+`
 
 export default ContactForm;
